@@ -1,0 +1,116 @@
+﻿@page
+@model RestaurantReviewer.Pages.Sakura.DetailsModel
+
+@{
+    ViewData["Title"] = @Html.DisplayFor(model => model.Restaurants.Name);
+}
+
+@{
+    var img = Model.Restaurants.Name + ".jpg";
+}
+
+<h1 style="margin-top: 5rem;">@Html.DisplayFor(model => model.Restaurants.Name)</h1>
+<p class="mb-0">
+    @{
+        int rating = Convert.ToInt32(Model.Restaurants.Rating);
+        for (int i = 0; i < rating; i++)
+        {
+            <span style="font-size: 2rem; color: gold; -webkit-text-stroke: 1px black;">&#9733;</span>
+        }
+    }
+</p>
+<p style="font-size: 1rem; font-family: Georgia, 'Times New Roman', sans-serif;">(@Html.DisplayFor(model => model.Restaurants.Rating) stars)</p>
+@{
+    if (Model.Restaurants.ID <= 5)
+    {
+        <img src="~/images/@img" style="width: 350px;" />
+    }
+}
+<p class="mt-5">
+    <span class="me-5">&#x1FA99;@Html.DisplayFor(model => model.Restaurants.Cost)</span>
+    <span>&#127860;@Html.DisplayFor(model => model.Restaurants.Type)</span>
+</p>
+<hr />
+
+<div class="row mt-5">
+    <h2>About</h2>
+    <p class="my-3 txt">@Html.DisplayFor(model => model.Restaurants.Description)</p>
+    <div class="col-6 mt-3">
+        <h3>MENU</h3>
+        <p class="txt">Coming Soon...</p>
+    </div>
+    <div class="col-6 mt-3">
+        <h3>HOURS</h3>
+        <p class="txt">Coming Soon...</p>
+    </div>
+</div>
+<hr />
+
+<div class="mt-5">
+    <h3>Reviews</h3>
+    <table class="table txt">
+        @{
+            string reviews = @ViewData["Reviews"].ToString();
+            string review = "";
+            for (int i = 0; i < reviews.Length; i++)
+            {
+                if (i < reviews.Length - 13)
+                {
+                    if (reviews[i + 13] == ':' && reviews[i + 14] == ' ' && i != 0)
+                    {
+                        <tr>
+                            <td href="#" class="btn btn-outline-dark">User</td>
+                            <td class="text-start">@review</td>
+                        </tr>
+                        review = "";
+                    }
+                }
+                review += reviews[i];
+            }
+            <tr>
+                @{
+                    if (!String.IsNullOrEmpty(review))
+                    {
+                        <td href="#" class="btn btn-outline-dark">User</td>
+                        <td class="text-start">@review</td>
+                    }
+                }
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="mt-5 bg-dark">
+    <span class="me-5">
+        <a href="#" class="me-3">Log in</a>
+        <a href="#" class="me-3">Sign up</a>
+        <a href="#">Share&#11189;</a>
+    </span>
+    <a asp-page="./Edit" asp-route-id="@Model.Restaurants?.ID" class="me-3">Edit</a>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+<style>
+    body {
+        font-family: fantasy;
+        background-color: #F2F0EB;
+    }
+    main {
+        font-size: 1.25rem;
+        text-align: center;
+    }
+    a {
+        color: black;
+    }
+    main a {
+        color: white;
+        text-decoration: none;
+    }
+    a:hover {
+        color: red;
+    }
+    .txt {
+        font-family: Georgia;
+        font-size: 1.15rem;
+    }
+</style>

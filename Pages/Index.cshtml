@@ -1,0 +1,35 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center wrapper" style="margin-top: 25%;">
+    <h1 class="display-4 mb-5">Restaurant Reviewer</h1>
+    <p style="font-size: 1.1rem; font-weight: bold; font-family: cursive;">
+        <span class="text-white bg-danger px-1">Restaurant Reviewer</span> is a great app for reading and posting restaurant reviews!<br />
+        You can search by name, sort by rating, and filter by the type of restaurant.<br />
+        Very easy form to write a review!<br />
+    </p>
+</div>
+
+<style>
+    body {
+        background: url("../images/restaurant.jpg") no-repeat;
+        background-size: cover;
+    }
+
+    .wrapper {
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 5%;
+        box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    a {
+        color: white;
+    }
+
+    a:hover {
+        color: red;
+    }
+</style>

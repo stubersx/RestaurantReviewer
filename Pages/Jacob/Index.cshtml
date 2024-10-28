@@ -1,0 +1,105 @@
+﻿@page
+@model RestaurantReviewer.Pages.Jacob.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    body{
+        background-color:saddlebrown;
+    }
+    a {
+		color: white;
+		text-decoration: none;
+    }
+    a:hover {
+        color: sandybrown;
+    }
+    #rSort:hover {
+        background-color: grey;
+        padding: 5px;
+        color: white;
+    }
+
+</style>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<i class="material-icons" style="color:white; font-size:40px; float:left;">menu</i>
+
+<form>
+    <select style="float:left; margin:12px;" asp-for="RestaurantType" asp-items="Model.Types">
+    </select>
+    <p style="float:right;">
+        <input type="text" asp-for="SearchString" />
+        <input class="btn btn-secondary m-3" type="submit" value="Filter" />
+        <a asp-page="./Index" class="btn btn-secondary m-3">Clear</a>
+	</p>
+</form>
+<div class="bg-dark">
+	<h1 style="text-align:center; color:white;" class="p-5">Top Restaurants Today!</h1>
+</div>
+<table class="table bg-dark text-light">
+    <thead>
+        <tr>
+            <th>
+                Picture
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurants[0].Name)
+            </th>
+            <th>
+				<a id="rSort" asp-page="./Index" asp-route-sortOrder="@Model.RatingSort">@Html.DisplayNameFor(model => model.Restaurants[0].Rating)</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurants[0].Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurants[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurants[0].Cost)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Restaurants)
+        {
+            <tr>
+                <td>
+                    @{
+                        var img = item.Name + ".jpg";
+                        <img src="~/images/@img" height="120px" width="120px"/>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a style="background-color:grey; padding:10px; border-radius:8px;" asp-page="Create">Add Review</a>
+</p>
